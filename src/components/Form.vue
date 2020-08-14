@@ -48,6 +48,72 @@
                   ></DialogTextField>
                 </v-col>
               </v-row>
+              <v-row
+                justify="center"
+                align-content="center"
+                v-else-if="obj.component.type === 'v-select'"
+              >
+                <v-col cols="12" sm="10">
+                  <v-select
+                    v-model="obj.component.options.model"
+                    :items="obj.component.options.items"
+                    :disabled="obj.component.options.disabled"
+                    :readonly="obj.component.options.readonly"
+                    :chips="obj.component.options.chips"
+                    :multiple="obj.component.options.multiple"
+                    :append-icon="
+                      obj.component.options.appendIcon ? 'mdi-plus' : ''
+                    "
+                    :prepend-icon="
+                      obj.component.options.prependIcon ? 'mdi-minus' : ''
+                    "
+                    label="Label"
+                  >
+                    <v-icon
+                      v-if="obj.component.options.appendSlot"
+                      slot="append"
+                      color="green"
+                      >mdi-plus</v-icon
+                    >
+                    <v-icon
+                      v-if="obj.component.options.prependSlot"
+                      slot="prepend"
+                      color="red"
+                      >mdi-minus</v-icon
+                    >
+                    <v-icon
+                      v-if="obj.component.options.appendItemSlot"
+                      slot="append-item"
+                      >mdi-contain-end</v-icon
+                    >
+                    <v-icon
+                      v-if="obj.component.options.prependItemSlot"
+                      slot="prepend-item"
+                      >mdi-contain-start</v-icon
+                    >
+                    <template
+                      v-if="obj.component.options.selectSlot"
+                      v-slot:selection="{ item, index }"
+                    >
+                      <v-chip v-if="index === 0">
+                        <span>{{ item }}</span>
+                      </v-chip>
+                      <span v-if="index === 1" class="grey--text caption"
+                        >(+{{
+                          obj.component.options.model.length - 1
+                        }}
+                        others)</span
+                      >
+                    </template>
+                  </v-select>
+                </v-col>
+                <v-col cols="12" sm="2">
+                  <DialogSelectField
+                    v-bind:key="index"
+                    v-model="obj.component.options"
+                  ></DialogSelectField>
+                </v-col>
+              </v-row>
             </v-col>
             <v-btn small color="primary" @click="generate">Send</v-btn></v-col
           >
@@ -63,9 +129,10 @@ import Component from "vue-class-component";
 import { Field } from "@/models/Field";
 import { Emit, Prop } from "vue-property-decorator";
 import DialogTextField from "@/components/DialogTextField.vue";
+import DialogSelectField from "@/components/DialogSelectField.vue";
 @Component({
   name: "Form",
-  components: { DialogTextField }
+  components: { DialogSelectField, DialogTextField }
   // Toutes les options de composant sont autorisées ici.
 })
 export default class Form extends Vue {

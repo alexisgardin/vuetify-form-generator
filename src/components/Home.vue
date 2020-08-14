@@ -16,7 +16,10 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import VJsoneditor from "v-jsoneditor";
 import Form from "@/components/Form.vue";
-import { DefaultTextField } from "@/models/DefaultValueField";
+import {
+  DefaultOptionSelect,
+  DefaultTextField
+} from "@/models/DefaultValueField";
 @Component({
   name: "Home",
   components: {
@@ -73,20 +76,28 @@ export default class Home extends Vue {
         stack[key] = {
           name: key,
           type: "array",
-          component: this.selectDefaultComponent("array")
+          component: this.selectDefaultComponent( "array", obj[key], key)
         };
       } else if (typeof obj[key] === "object") {
         stack[key] = {};
         this.recursiveComputeScheme(obj[key], stack[key]);
       } else {
         const typeObject = typeof obj[key];
-        const defaultComp = this.selectDefaultComponent(typeObject, obj[key], key);
+        const defaultComp = this.selectDefaultComponent(
+          typeObject,
+          obj[key],
+          key
+        );
         stack[key] = { name: key, type: typeObject, component: defaultComp };
       }
     }
   }
 
-  selectDefaultComponent(type: string, value: any = undefined, label = 'Label PlaceHolder') {
+  selectDefaultComponent(
+    type: string,
+    value: any = undefined,
+    label = "Label PlaceHolder"
+  ) {
     switch (type) {
       case "string": {
         const defaultText = { ...DefaultTextField };
@@ -96,8 +107,12 @@ export default class Home extends Vue {
       }
       case "number":
         return { type: "v-input-number", options: "outlined" };
-      case "array":
-        return { type: "v-select", options: "outlined" };
+      case "array": {
+        const defaultText = { ...DefaultOptionSelect };
+        if (value.length > 0 && typeof value[0] === "string")
+          defaultText.items = value;
+        return { type: "v-select", options: defaultText };
+      }
     }
   }
 }

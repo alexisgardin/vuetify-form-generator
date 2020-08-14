@@ -20,3 +20,19 @@ export const DefaultTextField : OptionTextField = {
     dense: false,
     required: true
 }
+
+export const DefaultOptionSelect = {
+    items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
+    disabled: false,
+    readonly: false,
+    chips: false,
+    multiple: false,
+    appendIcon: false,
+    appendSlot: false,
+    appendItemSlot: false,
+    prependIcon: false,
+    prependSlot: false,
+    prependItemSlot: false,
+    selectSlot: false,
+    model: 'Foo',
+}
