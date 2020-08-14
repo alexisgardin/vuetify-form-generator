@@ -1,10 +1,10 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12" lg="4">
+      <v-col cols="12" lg="12">
         <v-jsoneditor v-model="json" :plus="false"></v-jsoneditor>
       </v-col>
-      <v-col cols="12" lg="8"  v-if="metaJson">
+      <v-col cols="12" lg="12" v-if="metaJson">
         <Form v-if="metaJson" v-model="this.metaJson"></Form>
       </v-col>
     </v-row>
@@ -64,12 +64,10 @@ export default class Home extends Vue {
     const stack = {};
     this.recursiveComputeScheme(this.json, stack);
     this.metaJson = stack;
-    console.log(stack);
   }
 
-  recursiveComputeScheme(obj: any, stack: any, isArray = false) {
+  recursiveComputeScheme(obj: any, stack: any) {
     for (const key of Object.keys(obj)) {
-      console.log(key);
       if (Array.isArray(obj[key])) {
         stack[key] = {
           name: key,
