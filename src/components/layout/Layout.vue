@@ -115,7 +115,7 @@
       </v-row>-->
     </v-app-bar>
 
-    <v-content align="start" style="padding: 20px">
+    <v-main align="start" style="padding: 20px">
       <v-container fluid align="start">
         <v-row
           align="start"
@@ -125,7 +125,7 @@
           <router-view class="view one" />
         </v-row>
       </v-container>
-    </v-content>
+    </v-main>
     <v-footer
       :color="this.$store.state.themes['$accent-color']"
       padless

@@ -16,6 +16,7 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import VJsoneditor from "v-jsoneditor";
 import Form from "@/components/Form.vue";
+import { DefaultTextField } from "@/models/DefaultValueField";
 @Component({
   name: "Home",
   components: {
@@ -79,20 +80,24 @@ export default class Home extends Vue {
         this.recursiveComputeScheme(obj[key], stack[key]);
       } else {
         const typeObject = typeof obj[key];
-        const defaultComp = this.selectDefaultComponent(typeObject);
+        const defaultComp = this.selectDefaultComponent(typeObject, obj[key], key);
         stack[key] = { name: key, type: typeObject, component: defaultComp };
       }
     }
   }
 
-  selectDefaultComponent(type: string) {
+  selectDefaultComponent(type: string, value: any = undefined, label = 'Label PlaceHolder') {
     switch (type) {
-      case "string":
-        return { type: "v-text-field", style: "outlined" };
+      case "string": {
+        const defaultText = { ...DefaultTextField };
+        defaultText.model = value;
+        defaultText.label = label;
+        return { type: "v-text-field", options: defaultText };
+      }
       case "number":
-        return { type: "v-input-number", style: "outlined" };
+        return { type: "v-input-number", options: "outlined" };
       case "array":
-        return { type: "v-select", style: "outlined" };
+        return { type: "v-select", options: "outlined" };
     }
   }
 }

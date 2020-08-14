@@ -12,22 +12,45 @@
               sm="12"
               lg="12"
             >
-              <v-row justify="center"  align-content="center">
+              <v-row
+                justify="center"
+                align-content="center"
+                v-if="obj.component.type === 'v-text-field'"
+              >
                 <v-col cols="12" sm="10">
                   <v-text-field
-                    v-if="obj.component.type === 'v-text-field'"
-                    value=""
-                    :label="obj.name"
-                    required
-                    outlined
+                    v-model="obj.component.options.model"
+                    :label="obj.component.options.label"
+                    :hint="obj.component.options.hint"
+                    :placeholder="obj.component.options.placeholder"
+                    :shaped="obj.component.options.shaped"
+                    :outlined="obj.component.options.outlined"
+                    :rounded="obj.component.options.rounded"
+                    :solo="obj.component.options.solo"
+                    :single-line="obj.component.options.singleLine"
+                    :filled="obj.component.options.filled"
+                    :clearable="obj.component.options.clearable"
+                    :persistent-hint="obj.component.options.persistentHint"
+                    :loading="obj.component.options.loading"
+                    :flat="obj.component.options.flat"
+                    :counter="
+                      obj.component.options.counterEn
+                        ? obj.component.options.counter
+                        : false
+                    "
+                    :dense="obj.component.options.dense"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="2">
-                  <DialogTextField></DialogTextField>
+                  <DialogTextField
+                    v-bind:key="index"
+                    v-model="obj.component.options"
+                  ></DialogTextField>
                 </v-col>
               </v-row>
-            </v-col
-          ></v-col>
+            </v-col>
+            <v-btn small color="primary" @click="generate">Send</v-btn></v-col
+          >
         </v-row>
       </v-container>
     </v-form>
@@ -52,6 +75,10 @@ export default class Form extends Vue {
   @Emit("input")
   update() {
     this.$emit("input", this.value);
+  }
+
+  generate() {
+    console.log(this.value);
   }
 }
 </script>
