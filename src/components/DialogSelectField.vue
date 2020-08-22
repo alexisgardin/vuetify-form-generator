@@ -141,7 +141,6 @@ export default class DialogSelectField extends Vue {
 
   @Watch("value.multiple")
   multiple(newVal: any, oldVal: any) {
-    console.log(newVal, oldVal);
     if (newVal) this.value.model = [this.value.model];
     else this.value.model = this.value.model[0] || "Foo";
   }

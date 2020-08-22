@@ -2,10 +2,17 @@
   <v-container>
     <v-row>
       <v-col cols="12" lg="12">
-        <v-jsoneditor v-model="json" :plus="false"></v-jsoneditor>
+        <v-jsoneditor
+          @input="update"
+          v-model="json"
+          :plus="false"
+        ></v-jsoneditor>
       </v-col>
       <v-col cols="12" lg="12" v-if="metaJson">
         <Form v-if="metaJson" v-model="this.metaJson"></Form>
+      </v-col>
+      <v-col cols="12" lg="12" v-if="metaJson">
+        <CodeGenerator></CodeGenerator>
       </v-col>
     </v-row>
   </v-container>
@@ -20,9 +27,11 @@ import {
   DefaultOptionSelect,
   DefaultTextField
 } from "@/models/DefaultValueField";
+import CodeGenerator from "@/components/CodeGenerator.vue";
 @Component({
   name: "Home",
   components: {
+    CodeGenerator,
     Form,
     VJsoneditor
   }
@@ -64,7 +73,15 @@ export default class Home extends Vue {
     phone: "+33609183128"
   };
   metaJson: any = {};
+
   mounted() {
+    const stack = {};
+    this.recursiveComputeScheme(this.json, stack);
+    this.metaJson = stack;
+  }
+
+  update($event: any) {
+    this.json = $event;
     const stack = {};
     this.recursiveComputeScheme(this.json, stack);
     this.metaJson = stack;
@@ -76,7 +93,7 @@ export default class Home extends Vue {
         stack[key] = {
           name: key,
           type: "array",
-          component: this.selectDefaultComponent( "array", obj[key], key)
+          component: this.selectDefaultComponent("array", obj[key], key)
         };
       } else if (typeof obj[key] === "object") {
         stack[key] = {};
