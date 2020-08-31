@@ -4,7 +4,7 @@
       @editorWillMount="willMount"
       ref="editor"
       class="editor"
-      v-model="value"
+      v-model="defaultTemplate"
       language="typescript"
       theme="vs-dark"
       :options="{
@@ -22,55 +22,21 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import MonacoEditor from "vue-monaco";
+import * as Mustache from "mustache";
+import { Emit, Prop } from "vue-property-decorator";
 @Component({
   name: "CodeGenerator",
   components: { MonacoEditor }
 })
 export default class DialogTextField extends Vue {
-  value =
-    "<template>\n" +
-    "  <MonacoEditor\n" +
-    '    width="800"\n' +
-    '    height="500"\n' +
-    '    theme="vs-dark"\n' +
-    '    language="typescript"\n' +
-    '    :options="options"\n' +
-    '    @change="onChange"\n' +
-    '    v-model="value"\n' +
-    "  ></MonacoEditor>\n" +
-    "</template>\n" +
-    '<script lang="ts">\n' +
-    'import MonacoEditor from "monaco-editor-vue";\n' +
-    'import Vue from "vue";\n' +
-    'import Component from "vue-class-component";\n' +
-    'import { Emit, Prop } from "vue-property-decorator";\n' +
-    "@Component({\n" +
-    '  name: "CodeGenerator",\n' +
-    "  components: { MonacoEditor }\n" +
-    "  // Toutes les options de composant sont autorisées ici.\n" +
-    "})\n" +
-    "export default class DialogTextField extends Vue {\n" +
-    "  @Prop({\n" +
-    "    required: false,\n" +
-    '    default: `<script>` + "<"+\'/\'+"script>"\n' +
-    "  })\n" +
-    "  value: any;\n" +
-    "  options = {\n" +
-    "    //Monaco Editor Options\n" +
-    "  };\n" +
-    "\n" +
-    '  @Emit("input")\n' +
-    "  update() {\n" +
-    '    this.$emit("input", this.value);\n' +
-    "  }\n" +
-    "\n" +
-    "  onChange(value: any) {\n" +
-    "    console.log(value);\n" +
-    "  }\n" +
-    "}\n" +
-    "<" +
-    "/" +
-    "script>\n";
+  @Prop({ required: true })
+  value: any;
+
+  @Emit("input")
+  update() {
+    this.$emit("input", this.value);
+  }
+  defaultTemplate = require("@/assets/BaseForm.txt").default;
 
   willMount(event: any) {
     event.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
@@ -82,5 +48,12 @@ export default class DialogTextField extends Vue {
   options = {
     //Monaco Editor Options
   };
+
+  mounted() {
+    const output = Mustache.render(this.defaultTemplate, {
+      data: JSON.stringify(this.value)
+    });
+    console.log(output);
+  }
 }
 </script>
