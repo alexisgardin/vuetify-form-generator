@@ -45,15 +45,17 @@ export default class DialogTextField extends Vue {
     });
   }
 
-  options = {
-    //Monaco Editor Options
-  };
-
   mounted() {
+    let json = JSON.stringify(this.value.json);
+    json = json.replace(/\\"/g, "\uFFFF"); // U+ FFFF
+    json = json.replace(/"([^"]+)":/g, "$1:").replace(/\uFFFF/g, '\\"');
     const output = Mustache.render(this.defaultTemplate, {
-      data: JSON.stringify(this.value)
+      data: Object.values(this.value.metaJson),
+      value: json
     });
-    console.log(output);
+    this.defaultTemplate = output;
+    console.log(this.value.metaJson);
+    console.log(this.value.value);
   }
 }
 </script>

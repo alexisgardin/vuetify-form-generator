@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Layout from "@/components/layout/Layout.vue";
 import Home from "@/components/Home.vue";
+import BaseForm from "@/components/BaseForm.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -15,9 +16,13 @@ const routes = [
         name: "Home",
         component: Home
       },
+      {
+        path: "base",
+        name: "BaseForm",
+        component: BaseForm
+      }
     ]
-  },
-
+  }
 ];
 
 const router = new VueRouter({

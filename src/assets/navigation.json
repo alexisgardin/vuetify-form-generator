@@ -1,3 +1,4 @@
 [
-  { "title": "Home", "icon": "mdi-home-variant", "route": "/home" }
+  { "title": "Home", "icon": "mdi-home-variant", "route": "/home" },
+  { "title": "Test", "icon": "mdi-test-tube", "route": "/base" }
 ]
