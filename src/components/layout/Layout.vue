@@ -55,10 +55,7 @@
                 <v-list-item-title v-text="subItem.title"></v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-
           </v-list-group>
-
-
         </template>
       </v-list>
     </v-navigation-drawer>
@@ -113,7 +110,7 @@
   background-color: white;
 }
 .active-text-subgroup {
-  color: white!important;
+  color: white !important;
 }
 </style>
 <script lang="ts">

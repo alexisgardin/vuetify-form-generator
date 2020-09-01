@@ -8,11 +8,23 @@
           :plus="false"
         ></v-jsoneditor>
       </v-col>
-      <v-col cols="12" lg="12" v-if="data.metaJson">
-        <Form v-if="data.metaJson" v-model="data.metaJson"></Form>
+      <v-col cols="12" sm="12" md="6" lg="6" v-if="data.metaJson">
+        <GlobalOption v-model="data.metaJson"></GlobalOption>
       </v-col>
-      <v-col cols="12" lg="12" v-if="data.metaJson">
-        <CodeGenerator v-if="data.metaJson" v-model="data"></CodeGenerator>
+      <v-col cols="12" sm="12" md="6" lg="6" v-if="data.metaJson">
+        <Form
+          @input="updateMeta"
+          v-if="data.metaJson"
+          v-model="data.metaJson"
+        ></Form>
+      </v-col>
+
+      <v-col cols="12" sm="12" md="12" lg="12" v-if="data.metaJson">
+        <CodeGenerator
+          @input="updateMeta"
+          v-if="data.metaJson"
+          v-model="data"
+        ></CodeGenerator>
       </v-col>
     </v-row>
   </v-container>
@@ -28,9 +40,11 @@ import {
   DefaultTextField
 } from "@/models/DefaultValueField";
 import CodeGenerator from "@/components/CodeGenerator.vue";
+import GlobalOption from "@/components/GlobalOption.vue";
 @Component({
   name: "Home",
   components: {
+    GlobalOption,
     CodeGenerator,
     Form,
     VJsoneditor
@@ -46,48 +60,26 @@ export default class Home extends Vue {
       email: "alexismw3@gmail.com",
       avatar: "https://robohash.org/officiisomnisaut.bmp?size=50x50&set=set1",
       userName: "ateagery",
-      tags: [
-        {
-          id: 1,
-          value: "group1"
-        },
-        {
-          id: 2,
-          value: "night"
-        },
-        {
-          id: 3,
-          value: "group2"
-        },
-        {
-          id: 4,
-          value: "truck"
-        },
-        {
-          id: 5,
-          value: "car"
-        },
-        {
-          id: 6,
-          value: "scooter"
-        }
-      ],
+      tags: ["Car", "Scooter", "Bus", "Truck"],
       phone: "+33609183128"
     }
   };
   mounted() {
     const stack = {};
     this.recursiveComputeScheme(this.data.json, stack);
-    (this.data.metaJson as any) = stack;
+    (this.data.metaJson as any) = Object.values(stack);
   }
 
   update($event: any) {
     this.data.json = $event;
     const stack = {};
     this.recursiveComputeScheme(this.data.json, stack);
-    (this.data.metaJson as any) = stack;
+    (this.data.metaJson as any) = Object.values(stack);
   }
 
+  updateMeta($event: any) {
+    console.log($event);
+  }
   recursiveComputeScheme(obj: any, stack: any) {
     for (const key of Object.keys(obj)) {
       if (Array.isArray(obj[key])) {
@@ -107,7 +99,12 @@ export default class Home extends Vue {
           obj[key],
           key
         );
-        stack[key] = { name: key, fieldName: key, type: typeObject, component: defaultComp };
+        stack[key] = {
+          name: key,
+          fieldName: key,
+          type: typeObject,
+          component: defaultComp
+        };
       }
     }
   }
@@ -122,10 +119,18 @@ export default class Home extends Vue {
         const defaultText = { ...DefaultTextField };
         defaultText.model = value;
         defaultText.label = label;
-        return { type: "v-text-field", options: defaultText, isTextField: true };
+        return {
+          type: "v-text-field",
+          options: defaultText,
+          isTextField: true
+        };
       }
       case "number":
-        return { type: "v-input-number", options: "outlined",  isNumberField: true };
+        return {
+          type: "v-input-number",
+          options: "outlined",
+          isNumberField: true
+        };
       case "array": {
         const defaultText = { ...DefaultOptionSelect };
         if (value.length > 0 && typeof value[0] === "string")

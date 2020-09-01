@@ -23,12 +23,12 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import MonacoEditor from "vue-monaco";
 import * as Mustache from "mustache";
-import { Emit, Prop } from "vue-property-decorator";
+import { Emit, Prop, Watch } from "vue-property-decorator";
 @Component({
   name: "CodeGenerator",
   components: { MonacoEditor }
 })
-export default class DialogTextField extends Vue {
+export default class CodeGenerator extends Vue {
   @Prop({ required: true })
   value: any;
 
@@ -45,17 +45,25 @@ export default class DialogTextField extends Vue {
     });
   }
 
+  @Watch("value", { deep: true })
+  onValueChange() {
+    this.parseFormData();
+    console.log(this.defaultTemplate, this.value.metaJson[6].component.options.outlined);
+  }
+
   mounted() {
+    this.parseFormData();
+  }
+
+  private parseFormData() {
     let json = JSON.stringify(this.value.json);
     json = json.replace(/\\"/g, "\uFFFF"); // U+ FFFF
     json = json.replace(/"([^"]+)":/g, "$1:").replace(/\uFFFF/g, '\\"');
-    const output = Mustache.render(this.defaultTemplate, {
-      data: Object.values(this.value.metaJson),
+    const output = Mustache.render(require("@/assets/BaseForm.txt").default, {
+      data: this.value.metaJson,
       value: json
     });
     this.defaultTemplate = output;
-    console.log(this.value.metaJson);
-    console.log(this.value.value);
   }
 }
 </script>

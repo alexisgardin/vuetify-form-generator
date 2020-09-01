@@ -6,10 +6,40 @@
       <v-col cols="12" sm="12">
       {{#component.isTextField}}
                    <v-text-field v-model="value.{{fieldName}}"
+                   {{#component.options.outlined}}
+                        outlined
+                   {{/component.options.outlined}}
+                   {{#component.options.shaped}}
+                        shaped
+                   {{/component.options.shaped}}
+                   {{#component.options.rounded}}
+                        rounded
+                   {{/component.options.rounded}}
+                   {{#component.options.solo}}
+                        solo
+                   {{/component.options.solo}}
+                   {{#component.options.singleLine}}
+                        singleLine
+                   {{/component.options.singleLine}}
+                   {{#component.options.filled}}
+                        filled
+                   {{/component.options.filled}}
+                   {{#component.options.clearable}}
+                        clearable
+                   {{/component.options.clearable}}
+                   {{#component.options.persistentHint}}
+                        persistentHint
+                   {{/component.options.persistentHint}}
+                   {{#component.options.loading}}
+                        loading
+                   {{/component.options.loading}}
+                   {{#component.options.flat}}
+                        flat
+                   {{/component.options.flat}}
                    ></v-text-field>
         {{/component.isTextField}}
       {{#component.isSelectField}}
-                   <v-select :items="value.{{fieldName}}"
+                   <v-select :items="value.{{fieldName}}" label="{{fieldName}}"
                    ></v-select>
         {{/component.isSelectField}}
       </v-col>

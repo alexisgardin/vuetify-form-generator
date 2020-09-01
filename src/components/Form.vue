@@ -3,11 +3,10 @@
     <v-form>
       <v-container>
         <v-row>
-          <v-col cols="12" sm="6" lg="6"> </v-col>
-          <v-col sm="6">
+          <v-col cols="12">
             <v-col
               v-bind:key="index"
-              v-for="(obj, index) in Object.values(this.value)"
+              v-for="(obj, index) in this.value"
               cols="12"
               sm="12"
               lg="12"
@@ -115,7 +114,7 @@
                 </v-col>
               </v-row>
             </v-col>
-            <v-btn small color="primary" @click="generate">Send</v-btn></v-col
+           <!-- <v-btn small color="primary" @click="generate">Send</v-btn>--></v-col
           >
         </v-row>
       </v-container>
