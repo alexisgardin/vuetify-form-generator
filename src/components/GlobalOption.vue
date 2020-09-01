@@ -1,27 +1,33 @@
 <template>
-  <v-item-group multiple>
-    <v-container>
-      <v-row>
-        <v-col
-          v-for="(option, index) in switchTextFiled"
-          v-bind:key="index"
-          cols="12"
-          sm="6"
-          md="4"
-          lg="3"
-        >
-          <v-item>
-            <v-switch
-              :label="'Enable ' + option"
-              color="orange darken-3"
-              hide-details
-              @change="updateSwitch($event, option)"
-            ></v-switch
-          ></v-item>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-item-group>
+  <div>
+    <h4>Text Field Global Option</h4>
+    <v-divider></v-divider>
+    <v-item-group multiple>
+      <v-container>
+        <v-row>
+          <v-col
+            v-for="(option, index) in switchTextFiled"
+            v-bind:key="index"
+            cols="12"
+            sm="6"
+            md="4"
+            lg="3"
+          >
+            <v-item>
+              <v-switch
+                :label="'Enable ' + option"
+                color="orange darken-3"
+                hide-details
+                @change="updateSwitch($event, option)"
+              ></v-switch
+            ></v-item>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-item-group>
+
+    <v-divider></v-divider>
+  </div>
 </template>
 <style></style>
 <script lang="ts">
