@@ -161,7 +161,7 @@ export default class Form extends Vue {
     this.$emit("input", this.value);
   }
 
-  generate() {
+  mounted() {
     console.log(this.value);
   }
 }

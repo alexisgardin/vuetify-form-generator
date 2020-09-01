@@ -5,7 +5,8 @@
         <v-jsoneditor
           @input="update"
           v-model="data.json"
-          :plus="false"
+          :plus="true"
+          :options="{ mode: 'code' }"
         ></v-jsoneditor>
       </v-col>
       <v-col cols="12" sm="12" md="6" lg="6" v-if="data.metaJson">
@@ -61,7 +62,8 @@ export default class Home extends Vue {
       avatar: "https://robohash.org/officiisomnisaut.bmp?size=50x50&set=set1",
       userName: "ateagery",
       tags: ["Car", "Scooter", "Bus", "Truck"],
-      phone: "+33609183128"
+      phone: "+33609183128",
+      banned: false
     }
   };
   mounted() {
@@ -132,6 +134,12 @@ export default class Home extends Vue {
           isNumberField: true
         };
       case "array": {
+        const defaultText = { ...DefaultOptionSelect };
+        if (value.length > 0 && typeof value[0] === "string")
+          defaultText.items = value;
+        return { type: "v-select", options: defaultText, isSelectField: true };
+      }
+      case "boolean": {
         const defaultText = { ...DefaultOptionSelect };
         if (value.length > 0 && typeof value[0] === "string")
           defaultText.items = value;
