@@ -37,6 +37,7 @@ import Component from "vue-class-component";
 import VJsoneditor from "v-jsoneditor";
 import Form from "@/components/Form.vue";
 import {
+  DefaultOptionCheckbox,
   DefaultOptionSelect,
   DefaultTextField
 } from "@/models/DefaultValueField";
@@ -140,10 +141,14 @@ export default class Home extends Vue {
         return { type: "v-select", options: defaultText, isSelectField: true };
       }
       case "boolean": {
-        const defaultText = { ...DefaultOptionSelect };
-        if (value.length > 0 && typeof value[0] === "string")
-          defaultText.items = value;
-        return { type: "v-select", options: defaultText, isSelectField: true };
+        const defaultText = { ...DefaultOptionCheckbox };
+        defaultText.label = label;
+        defaultText.model = value;
+        return {
+          type: "v-checkbox",
+          options: defaultText,
+          isCheckBoxField: true
+        };
       }
     }
   }

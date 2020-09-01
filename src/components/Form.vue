@@ -132,6 +132,16 @@
                   ></DialogSelectField>
                 </v-col>
               </v-row>
+              <v-row
+                justify="start"
+                align-content="center"
+                v-else-if="obj.component.type === 'v-checkbox'"
+              >
+                <v-checkbox
+                  v-model="obj.component.options.model"
+                  :label="obj.component.options.label"
+                ></v-checkbox>
+              </v-row>
             </v-col>
           </v-col>
         </v-row>

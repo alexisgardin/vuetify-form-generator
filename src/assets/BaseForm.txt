@@ -84,6 +84,9 @@
                    {{/component.options.selectSlot}}
                    ></v-select>
         {{/component.isSelectField}}
+      {{#component.isCheckBoxField}}
+      <v-checkbox :items="value.{{fieldName}}" label="{{fieldName}}"></v-checkbox>
+      {{/component.isCheckBoxField}}
       </v-col>
         {{/data}}
     </v-row>
