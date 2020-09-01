@@ -27,6 +27,12 @@
               v-model="value.placeholder"
               label="Placeholder"
             ></v-text-field>
+
+            <v-text-field
+              v-model="value.icon"
+              label="icon"
+              :append-icon="value.icon"
+            ></v-text-field>
           </v-col>
           <v-col cols="12"></v-col>
           <v-col cols="12" md="6">
@@ -52,6 +58,21 @@
               class="ma-1"
               label="Solo"
               :disabled="value.filled"
+            ></v-switch>
+            <v-switch
+              v-model="value.prependIcon"
+              class="ma-1"
+              label="Prepend Icon"
+            ></v-switch>
+            <v-switch
+              v-model="value.appendIcon"
+              class="ma-1"
+              label="Append Icon"
+            ></v-switch>
+            <v-switch
+              v-model="value.appendOuterIcon"
+              class="ma-1"
+              label="Append Outer Icon"
             ></v-switch>
             <v-switch
               v-model="value.singleLine"
@@ -121,6 +142,9 @@
                 :flat="value.flat"
                 :counter="value.counterEn ? value.counter : false"
                 :dense="value.dense"
+                :prepend-icon="value.prependIcon ? value.icon : ''"
+                :append-icon="value.appendIcon ? value.icon : ''"
+                :append-outer-icon="value.appendOuterIcon ? value.icon : ''"
               ></v-text-field>
               <div class="mt-12 text-center">Value: {{ value.model }}</div>
             </v-sheet>

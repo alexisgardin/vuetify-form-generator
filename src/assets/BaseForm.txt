@@ -36,6 +36,15 @@
                    {{#component.options.flat}}
                         flat
                    {{/component.options.flat}}
+                   {{#component.options.appendIcon}}
+                        append-icon="{{component.options.icon}}"
+                   {{/component.options.appendIcon}}
+                   {{#component.options.prependIcon}}
+                        prepend-icon="{{component.options.icon}}"
+                   {{/component.options.prependIcon}}
+                   {{#component.options.appendOuterIcon}}
+                        append-outer-icon="{{component.options.icon}}"
+                   {{/component.options.appendOuterIcon}}
                    ></v-text-field>
         {{/component.isTextField}}
       {{#component.isSelectField}}
@@ -53,7 +62,7 @@
                         multiple
                    {{/component.options.multiple}}
                    {{#component.options.appendIcon}}
-                        appendIcon
+                        append-icon="{{component.options.icon}}"
                    {{/component.options.appendIcon}}
                    {{#component.options.appendSlot}}
                         appendSlot
@@ -62,7 +71,7 @@
                         appendItemSlot
                    {{/component.options.appendItemSlot}}
                    {{#component.options.prependIcon}}
-                        prependIcon
+                        prepend-icon="{{component.options.icon}}"
                    {{/component.options.prependIcon}}
                    {{#component.options.prependSlot}}
                         prependSlot

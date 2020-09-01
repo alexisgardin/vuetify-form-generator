@@ -71,6 +71,11 @@
             class="ma-2"
             label="Selection slot"
           ></v-switch>
+          <v-text-field
+            v-model="value.icon"
+            label="icon"
+            :append-icon="value.icon"
+          ></v-text-field>
           <v-col cols="12">
             <v-select
               v-model="value.model"
@@ -79,8 +84,8 @@
               :readonly="value.readonly"
               :chips="value.chips"
               :multiple="value.multiple"
-              :append-icon="value.appendIcon ? 'mdi-plus' : ''"
-              :prepend-icon="value.prependIcon ? 'mdi-minus' : ''"
+              :append-icon="value.appendIcon ? value.icon : ''"
+              :prepend-icon="value.prependIcon ? value.icon.value : ''"
               label="Label"
             >
               <v-icon v-if="value.appendSlot" slot="append" color="green"
@@ -133,7 +138,6 @@ export default class DialogSelectField extends Vue {
     required: true
   })
   value: OptionSelectField | any;
-
   @Emit("input")
   update() {
     this.$emit("input", this.value);

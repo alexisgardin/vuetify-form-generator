@@ -38,6 +38,21 @@
                         : false
                     "
                     :dense="obj.component.options.dense"
+                    :prepend-icon="
+                      obj.component.options.prependIcon
+                        ? obj.component.options.icon
+                        : ''
+                    "
+                    :append-icon="
+                      obj.component.options.appendIcon
+                        ? obj.component.options.icon
+                        : ''
+                    "
+                    :append-outer-icon="
+                      obj.component.options.appendOuterIcon
+                        ? obj.component.options.icon
+                        : ''
+                    "
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="2">
@@ -61,10 +76,14 @@
                     :chips="obj.component.options.chips"
                     :multiple="obj.component.options.multiple"
                     :append-icon="
-                      obj.component.options.appendIcon ? 'mdi-plus' : ''
+                      obj.component.options.appendIcon
+                        ? obj.component.options.icon
+                        : ''
                     "
                     :prepend-icon="
-                      obj.component.options.prependIcon ? 'mdi-minus' : ''
+                      obj.component.options.prependIcon
+                        ? obj.component.options.icon
+                        : ''
                     "
                     label="Label"
                   >
@@ -114,8 +133,7 @@
                 </v-col>
               </v-row>
             </v-col>
-           <!-- <v-btn small color="primary" @click="generate">Send</v-btn>--></v-col
-          >
+          </v-col>
         </v-row>
       </v-container>
     </v-form>

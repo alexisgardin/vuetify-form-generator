@@ -12,4 +12,6 @@ export interface OptionSelectField {
     prependItemSlot: boolean;
     selectSlot: boolean;
     model: string;
+    icon: string;
+
 }

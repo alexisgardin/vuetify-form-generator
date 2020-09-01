@@ -94,7 +94,6 @@ export default class GlobalOption extends Vue {
         v.component.options[option] = $event;
       }
     });
-    console.log(this.value[0].component.options.shaped);
   }
 }
 </script>
