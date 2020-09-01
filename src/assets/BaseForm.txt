@@ -40,6 +40,39 @@
         {{/component.isTextField}}
       {{#component.isSelectField}}
                    <v-select :items="value.{{fieldName}}" label="{{fieldName}}"
+                   {{#component.options.readonly}}
+                        readonly
+                   {{/component.options.readonly}}
+                   {{#component.options.readonly}}
+                        readonly
+                   {{/component.options.readonly}}
+                   {{#component.options.chips}}
+                        chips
+                   {{/component.options.chips}}
+                   {{#component.options.multiple}}
+                        multiple
+                   {{/component.options.multiple}}
+                   {{#component.options.appendIcon}}
+                        appendIcon
+                   {{/component.options.appendIcon}}
+                   {{#component.options.appendSlot}}
+                        appendSlot
+                   {{/component.options.appendSlot}}
+                   {{#component.options.appendItemSlot}}
+                        appendItemSlot
+                   {{/component.options.appendItemSlot}}
+                   {{#component.options.prependIcon}}
+                        prependIcon
+                   {{/component.options.prependIcon}}
+                   {{#component.options.prependSlot}}
+                        prependSlot
+                   {{/component.options.prependSlot}}
+                   {{#component.options.prependItemSlot}}
+                        prependItemSlot
+                   {{/component.options.prependItemSlot}}
+                   {{#component.options.selectSlot}}
+                        selectSlot
+                   {{/component.options.selectSlot}}
                    ></v-select>
         {{/component.isSelectField}}
       </v-col>
@@ -60,3 +93,5 @@ export default class BaseForm extends Vue {
 value = {{{value}}}
 }
 </script>
+
+

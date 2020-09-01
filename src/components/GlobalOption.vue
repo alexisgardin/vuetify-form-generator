@@ -1,39 +1,47 @@
 <template>
   <div>
-    <h4>Text Field Global Option</h4>
-    <v-divider></v-divider>
-    <v-item-group multiple>
-      <v-container>
-        <v-row>
-          <v-col
-            v-for="(option, index) in switchTextFiled"
-            v-bind:key="index"
-            cols="12"
-            sm="6"
-            md="4"
-            lg="3"
-          >
-            <v-item>
-              <v-switch
-                :label="'Enable ' + option"
-                color="orange darken-3"
-                hide-details
-                @change="updateSwitch($event, option)"
-              ></v-switch
-            ></v-item>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-item-group>
-
-    <v-divider></v-divider>
+    <h3>Global Option</h3>
+    <v-expansion-panels hover flat>
+      <v-expansion-panel v-for="(item, i) in data" :key="i">
+        <v-expansion-panel-header style="padding: 5px">{{
+          item.title
+        }}</v-expansion-panel-header>
+        <v-expansion-panel-content style="padding: 0px">
+          <v-item-group multiple>
+            <v-row>
+              <v-col
+                v-for="(option, index) in item.options"
+                v-bind:key="index"
+                cols="12"
+                sm="6"
+                md="4"
+                lg="4"
+                style="padding-top: 0px;padding-bottom: 0px"
+              >
+                <v-checkbox
+                  :label="option"
+                  :key="i"
+                  @change="updateSwitch($event, option)"
+                  color="orange darken-3"
+                ></v-checkbox>
+              </v-col>
+            </v-row>
+          </v-item-group>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
   </div>
 </template>
-<style></style>
+<style>
+.v-expansion-panel-content__wrap {
+  padding: 0 !important;
+}
+</style>
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
 import { Emit, Prop, Watch } from "vue-property-decorator";
+
 @Component({
   name: "GlobalOption"
 })
@@ -46,18 +54,40 @@ export default class GlobalOption extends Vue {
     this.$emit("input", this.value);
   }
 
-  switchTextFiled = [
-    "outlined",
-    "rounded",
-    "solo",
-    "singleLine",
-    "clearable",
-    "flat",
-    "loading",
-    "dense",
-    "shaped",
-    "filled"
+  data = [
+    {
+      title: "Text Field Global Option",
+      options: [
+        "outlined",
+        "rounded",
+        "solo",
+        "singleLine",
+        "clearable",
+        "flat",
+        "loading",
+        "dense",
+        "shaped",
+        "filled"
+      ]
+    },
+    {
+      title: "Select Field Global Option",
+      options: [
+        "readonly",
+        "disabled",
+        "chips",
+        "multiple",
+        "appendIcon",
+        "appendSlot",
+        "appendItemSlot",
+        "prependIcon",
+        "prependSlot",
+        "prependItemSlot",
+        "selectSlot"
+      ]
+    }
   ];
+
   updateSwitch($event: any, option: any) {
     this.value.forEach((v: any) => {
       if (Object.keys(v.component.options).includes(option)) {
